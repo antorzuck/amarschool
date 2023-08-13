@@ -1,0 +1,64 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block bodyclass %} bg-body-tertiary {% endblock %}
+
+{% block body %}
+
+  <section class="vh-100">
+
+
+ <div class="mt-5 d-flex h-75 justify-content-center align-items-center container">
+
+
+
+   <div class="m-2 p-4 card-body bg-white">
+     <h4 class="my-3 text-center text-primary">লগ ইন
+     </h4>
+     {% if messages %}
+        {% for message in messages %}
+
+          <div class="alert alert-dismissible  alert-{{message.tags}}" role="alert">
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    {{message}}
+</div>
+
+        {% endfor %}
+    {% endif %}
+     <div class="row">
+
+       <div class="text-center col-md-6">
+        <img class="w-sm-50 img-fluid" src="{% static '/img/login.png' %}" alt="">
+       </div>
+
+       <div class="m-auto text-center col-md-6">
+
+
+         <form method="post" action={% url 'login' %}>
+             {% csrf_token %}
+          
+           <input class="form-control" type="email" name="email" placeholder="ইমেইল" />
+           <br>
+           <div class="d-flex">
+             <input class="me-2 form-control" type="password" name="pass" id="" placeholder="পাসওয়ার্ড" />
+
+           </div>
+           <br>
+          <button class="w-100 btn btn-primary" type="submit">লগ ইন </button>
+         </form>
+         <br>
+          <label>একাউন্ট নেই? <a href="/register">রেজিস্ট্রার করুন </a>
+       </div>
+
+     </div>
+
+
+
+        </div>
+
+    </div>
+
+  </section>
+
+
+{% endblock %}
