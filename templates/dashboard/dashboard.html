@@ -22,55 +22,42 @@
     <title>Dashboard</title>
   </head>
   <body>
-   
-<nav class="p-2 navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-       <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-              <span class="navbar-toggler-icon"></span>
-       </a> 
-    <a class="mx-auto navbar-brand" href="#">Demo School</a>
+    <nav class="p-2 navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <!-- Toggle Button (Start) -->
+        <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+          <span class="navbar-toggler-icon"></span>
+        </a>
     
+        <!-- Centered Text -->
+        <a class="mx-auto navbar-brand" href="#">Demo School</a>
     
-    
-    
-    
-    <div class="dropdown dropstart">
-      <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        <img class="avatar img-fluid" src="https://api.dicebear.com/6.x/initials/svg?seed={{request.user}}">
-
+        <!-- Dropdown Button (End) -->
+        <div class="dropdown dropstart">
+          <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="avatar img-fluid" src="https://api.dicebear.com/6.x/initials/svg?seed={{request.user}}">
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="#">Change Password!</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" href="/logout"><b>Logout</b></a></li>
+          </ul>
+        </div>
       </div>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-        <li><a class="dropdown-item" href="#">Change Password!</a></li>
-<hr class="dropdown-divider">
-        <li><a class="dropdown-item" href="/logout"><b>Logout</b></a></li>
-      </ul>
-    </div>
+    </nav>
     
-    
-    
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      
-      
-      
-     
-      
-    </div>
-  </div>
-</nav>
-   
    
 
    
-  <div class="text-white bg-dark sidebar-nav offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="bg-dark text-white sidebar-nav offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="text-muted small" id="offcanvasExampleLabel"></h5>
 
     </div>
     <div class="offcanvas-body">
      
-     
+     <nav class="navbar-dark">
      <ul class="navbar-nav">
        
      
@@ -144,7 +131,7 @@
      
      
      </ul>
-     
+     </nav>
     </div>
   </div>
   
@@ -153,10 +140,20 @@
   
   
   <div class="container">
+    <div class="mt-5 pt-3">
+
+      <div class="row">
+          <div class="col-md-1">
+  
+          </div>
+  
+          <div class="col-md-11">
+            {% block body %}
     
-    {% block body %}
-    
-    {% endblock %}
+            {% endblock %}
+      </div>
+  </div>
+   
     
   </div>
   
