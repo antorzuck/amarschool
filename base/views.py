@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from base.models import *
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 def create_username(name):
@@ -11,7 +11,7 @@ def create_username(name):
   return word
 
 def dashboard(request):
-  return render(request, 'dashboard/dashboard.html')
+  return render(request, 'dashboard/home.html')
 
 
 def home(request):
@@ -63,3 +63,11 @@ def handle_login(request):
       messages.warning(request, "User not found")
       return render(request, 'login.html')
   return render(request, 'login.html')
+
+
+def handle_logout(request):
+  logout(request)
+  messages.success(request, "successfully logged out!")
+  return redirect('/login')
+
+

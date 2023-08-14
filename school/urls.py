@@ -13,5 +13,6 @@ urlpatterns = [
     path('login', handle_login, name='login'),
     path('register', register, name='register'),
     path('dashboard', dashboard, name='dashboard'),
+    path('logout', handle_logout, name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
