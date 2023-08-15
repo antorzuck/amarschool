@@ -11,3 +11,22 @@ class User(AbstractUser):
     return self.name
 
 
+class SchoolInfo(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE)
+  slogan = models.TextField(null=True, blank=True)
+  facilities =  models.TextField(null=True, blank=True)
+  admission = models.TextField(null=True, blank=True)
+  address = models.TextField(null=True, blank=True)
+
+class Gallery(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE)
+  images = models.FileField(null=True, blank=True, upload_to='gallery')
+  caption = models.TextField(null=True, blank=True)
+
+class Notice(models.Model):
+  title = models.CharField(max_length=200, null=True, blank=True)
+  text = models.TextField(null=True, blank=True)
+  date = models.DateField(null=True, blank=True)
+  school = models.ForeignKey(User, on_delete=models.CASCADE)
+
+

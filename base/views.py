@@ -71,3 +71,15 @@ def handle_logout(request):
   return redirect('/login')
 
 
+def get_school(request, slug):
+  try:
+    school = User.objects.get(username=slug)
+    schoolinfo = SchoolInfo.objects.get(school=school)
+    notice = Notice.objects.filter(school=school).order_by('-id')
+    context = {'school':school, 'info':schoolinfo,'notice':notice}
+    return render(request, 'school.html',context)
+  except Exception as e:
+    print(e)
+    return redirect('/')
+
+

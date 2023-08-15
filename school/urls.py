@@ -14,5 +14,6 @@ urlpatterns = [
     path('register', register, name='register'),
     path('dashboard', dashboard, name='dashboard'),
     path('logout', handle_logout, name='logout'),
+    path('<slug>', get_school, name='get_school')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
