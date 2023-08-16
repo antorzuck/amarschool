@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from base.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 
 
 def create_username(name):
@@ -80,6 +83,20 @@ def get_school(request, slug):
     return render(request, 'school.html',context)
   except Exception as e:
     print(e)
+    print("***")
     return redirect('/')
 
+
+@api_view(['GET','POST'])
+def pub_notice(request):
+  data = request.data
+  title = data.get('title')
+  date = data.get('date')
+  usr = data.get('usr')
+  school = User.objects.get(username=usr)
+  print(usr)
+  print("*******")
+  ntc = Notice.objects.create(school=school, date=date,title=title)
+  ntc.save()
+  return Response({'msg':'success'})
 

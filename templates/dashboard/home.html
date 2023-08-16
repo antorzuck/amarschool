@@ -2,6 +2,8 @@
 
 
 {% block body %}
+
+<center>
 <div class="row">
 
 
@@ -40,5 +42,81 @@
 </div>
 
 
+
+
+<div class="col-md-6">
+<h5 class="text-start my-3">Publish notice</h5>
+
+<div class="card-body bg-white my-3 text-center">
+<form onsubmit="submitForm()" id="ntc" class="my-3">
+<textarea name="title" class="form-control" placeholder="Write a notice in short"  row=3></textarea>
+<br>
+<input name="date"  type="date" class="form-control">
+<br>
+<input name="usr" type="hidden" value="{{request.user.username}}">
+<button id="sbtn" class="btn btn-dark w-100"><span id="run"  class="spinner-border-sm" role="status" aria-hidden="true"></span> Publish</button>
+</form>
 </div>
+</div>
+
+
+
+
+</div>
+</center>
+
+
+<script>
+function submitForm() {
+    btn = document.getElementById('sbtn');
+    spn = document.getElementById('run');
+
+    event.preventDefault(); // Prevent default form submission
+    spn.classList.toggle("spinner-border");
+    btn.innerText = "Posting...";
+    btn.disabled = true;
+
+    var form = document.getElementById('ntc');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/notice", true);
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               spn.classList.toggle("spinner-border");
+               btn.disabled = false;
+               btn.innerText = "Publish";
+            } else {
+               spn.classList.toggle("spinner-border");
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+
+
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+
+
 {% endblock %}
