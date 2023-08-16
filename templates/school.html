@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +51,7 @@
 <!-- Navigation Bar -->
 <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="/img/logos.png" alt="" class="img-fluid lgo">
+    <img src="{% static '/img/logos.png' %}" alt="" class="img-fluid lgo">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
