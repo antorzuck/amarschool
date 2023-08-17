@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from base.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -96,4 +97,21 @@ def pub_notice(request):
   ntc = Notice.objects.create(school=school, date=date,title=title)
   ntc.save()
   return Response({'msg':'success'})
+
+
+
+def class_info(request):
+  data = request.POST
+  clas = Class.objects.all().order_by('-id')
+  if request.method == 'POST':
+    name = data.get('name')
+    type = data.get('type')
+    subjects = data.getlist('subjects')
+    start = data.get('start')
+    end = data.get('end')
+    cr = Class.objects.create(name=name,type=type,start_time=start,end_time=end)
+    cr.subjects.set(subjects)
+ 
+    return JsonResponse({"msg":"success"})
+  return render(request, 'dashboard/clas.html', context={'clas':clas})
 

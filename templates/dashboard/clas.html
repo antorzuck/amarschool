@@ -1,0 +1,164 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block body %}
+<div class="col-md-12">
+
+<section class="vh-100">
+
+
+ <div class="mt-5 d-lex h-75 justify-content-center align-items-center">
+<div class="text-end">
+<button type="button" class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <i class="bi bi-plus-circle-fill"></i> Class
+</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="frm" onsubmit="submitForm()">
+          <input class="form-control" type="text" name="name" placeholder="Class name">
+           <br>
+          <select name="type" class="form-control">
+            <option selected disabled>Section type </option>
+            <option value="Primary">Primary</option>
+            <option value="High">High</option>
+            <option value="Collage">Collage</option>
+            <option value="Madrasa">Madrasa</option>
+            </select>
+            <br>
+            
+              <select multiple name="subjects" class="form-control">
+            <option selected  disabled>Select Subjects</option>
+            {% for subject in subjects %}
+            <option value="{{subject.id}}">{{subject.name}}</option>
+           {% endfor %}
+            </select>
+             <br>
+             <input type="time" class="form-control" name="start">
+             <small class="text-muted"> Select school start time</small>
+<br>            
+ <input type="time" class="form-control" name="end">
+<small class="text-muted"> Select school end time </small>
+
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="svbtn" type="submit" class="btn btn-dark">Save</button>
+      </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+
+   <div class="card-body bg-white">
+    {% if messages %}
+        {% for message in messages %}
+
+          <div class="alert alert-dismissible  alert-{{message.tags}}" role="alert">
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    {{message}}
+</div>
+
+        {% endfor %}
+    {% endif %}
+    
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+   
+      <th scope="col">Class</th>
+      <th scope="col">Section Type</th>
+     <!--  <th scope="col">Subjects</th> -->
+      <th scope="col">School Hour</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    {% for c in clas %}
+    <tr> 
+      <td>{{c.name}}</td>
+      <td>{{c.type}}</td>
+<!--
+      <td>{% for subject in c.subjects.all %}
+        {{ subject.name}},
+    {% endfor %}</td> -->
+      <td>{{c.start_time}} – {{c.end_time}}</td>
+    </tr>
+    {% endfor %}
+   </thead>
+  </table>
+
+
+
+
+
+        </div>
+
+    </div>
+
+  </section>
+</div>
+
+<script>
+
+function submitForm() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtn');
+    btn.disabled = true;
+    btn.InnerText = "Submitting.."
+    var form = document.getElementById('frm');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/class", true);
+    
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               document.getElementById("frm").reset();
+               btn.disabled = false;
+               btn.InnerText = "Save"
+            } else {
+                document.getElementById("myForm").reset();
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+// Function to retrieve CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+</script>
+
+{% endblock %}

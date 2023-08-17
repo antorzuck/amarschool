@@ -29,4 +29,23 @@ class Notice(models.Model):
   date = models.DateField(null=True, blank=True)
   school = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class Subject(models.Model):
+  name = models.CharField(max_length=200)
+  code = models.CharField(max_length=200, null=True, blank=True)
 
+
+class Class(models.Model):
+  name = models.CharField(max_length=50)
+  type = models.CharField(max_length=100)
+  subjects = models.ManyToManyField(Subject)
+  start_time = models.TimeField(null=True, blank=True)
+  end_time = models.TimeField(null=True, blank=True)
+
+
+class Section(models.Model):
+  name = models.CharField(max_length=200)
+  class_name = models.ManyToManyField(Class)
+  shift = models.CharField(max_length=100)
+  year = models.CharField(max_length=100)
+  group = models.CharField(max_length=100)
+  room = models.CharField(max_length=100)
