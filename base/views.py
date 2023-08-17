@@ -54,10 +54,7 @@ def handle_login(request):
       auser = authenticate(request, username=user.username, password=password)
       print(auser)
       if auser is not None:
-        print("usrr have")
-        l = login(request, auser)
-        print(l)
-        messages.success(request, "Logged in succesfull")
+        login(request, auser)
         return redirect(dashboard)
       else:
         messages.warning(request, "User not found")

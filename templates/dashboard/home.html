@@ -91,6 +91,8 @@ function submitForm() {
                btn.innerText = "Publish";
             } else {
                spn.classList.toggle("spinner-border");
+               btn.disabled = false;
+               btn.innerText = "Publish";
             }
         }
     };
