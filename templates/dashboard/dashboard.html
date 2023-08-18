@@ -22,7 +22,10 @@ body,
 button {
   font-family: 'Signika Negative', sans-serif;
 }
-
+.card-body{
+ width : 100%;
+ overflow-x : scroll;
+}
 :root {
   --offcanvas-width: 270px;
   --topNavbarHeight: 56px;
@@ -111,7 +114,7 @@ border-radius : 100px;
         <nav class="navbar-dark">
           <ul class="navbar-nav">
             <li>
-              <div class="text-muted small fw-bold text-uppercase px-3">
+              <div class="text-muted  small fw-bold text-uppercase px-3">
                 CORE
               </div>
             </li>
@@ -123,7 +126,7 @@ border-radius : 100px;
                 data-bs-toggle="collapse"
                 href="#layouts"
               >
-                <span class="me-2"><i class="bi bi-layout-split"></i></span>
+                <span class="my-2 me-2"><i class="bi bi-layout-split"></i></span>
                 <span>Academics</span>
                 <span class="ms-auto">
                   <span class="right-icon">
@@ -142,12 +145,23 @@ border-radius : 100px;
                     </a>
 
 
-                    <a href="#" class="nav-link px-3">
+                    <a href="/dashboard/section" class="nav-link px-3">
                       <span class="me-2"
                         ><i class="bi bi-speedometer2"></i
                       ></span>
                       <span>Section</span>
                     </a>
+
+
+
+                     <a href="/dashboard/section" class="nav-link px-3">
+                      <span class="me-2"
+                        ><i class="bi bi-speedometer2"></i
+                      ></span>
+                      <span>Rooms</span>
+                    </a>
+
+
                   </li>
                 </ul>
               </div>

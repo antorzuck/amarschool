@@ -47,8 +47,15 @@ class Class(models.Model):
 class Section(models.Model):
   school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   name = models.CharField(max_length=200)
-  class_name = models.ManyToManyField(Class)
+  clas_name = models.ForeignKey(Class, on_delete=models.CASCADE,null=True,blank=True)
   shift = models.CharField(max_length=100)
   year = models.CharField(max_length=100)
   group = models.CharField(max_length=100)
   room = models.CharField(max_length=100)
+
+class Year(models.Model):
+  year_name = models.CharField(max_length=100)
+  
+
+  def __str__(self):
+    return str(self.year)

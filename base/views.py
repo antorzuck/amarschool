@@ -127,7 +127,15 @@ def class_info(request):
 def section(request):
   data = request.POST
   if request.method == "POST":
-    pass
-  sec = Section.objects.filter(user=request.user).order_by('-id')
+    cls = data.get('cls')
+    s = Section.objects.create(clas_name=Class.objects.get(id=cls),school=User.objects.get(username=data.get('clg')),name = data.get('name'),group = data.get('group'),shift = data.get('shift'),year = data.get('year'),room=data.get('room'))
+    s.save()
+  sec = Section.objects.filter(school=request.user).order_by('-id')
+  yr = request.GET.get('year')
+  dl = request.GET.get('delete')
+  if dl:
+    dsc = Section.objects.get(school=request.user,id=dl).delete()
+  if yr:
+    sec = sec.filter(year=yr)
   context = {'sec':sec}
-  return redirect(request, 'section.html', context)
+  return render(request, 'dashboard/section.html', context)

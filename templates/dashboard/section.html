@@ -1,0 +1,195 @@
+
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block body %}
+<div class="col-md-12">
+
+<section class="vh-100">
+
+
+ <div class="mt-5 d-lex h-75 justify-content-center align-items-center">
+<div class="text-end">
+<button type="button" class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <i class="bi bi-plus-circle-fill"></i> Section
+</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Section</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="frm" onsubmit="submitForm()">
+          <input class="form-control" type="text" name="name" placeholder="Section name">
+           <br>
+          <select name="cls" class="form-control">
+            <option selected disabled>Section class </option>
+             {% for class in classes %}
+            <option value="{{class.id}}">{{class.name}}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <input type="hidden" name="clg" value="{{request.user.username}}">
+              <select name="year" class="form-control">
+            <option selected  disabled>Select academic year</option>
+            {% for year in years %}
+            <option value="{{year.year_name}}">{{year.year_name}}</option>
+           {% endfor %}
+            </select>
+             <br>
+            <select name="group" class="form-control">
+             <option disabled selected>Select group</option>
+            <option value="Science">Science</option>
+            <option value="Arts">Arts</option>
+            <option value="Commerce">Commerce</option>
+            </select>
+            <br>
+
+              
+            <select name="shift" class="form-control">
+             <option disabled selected>Select Shift</option>
+            <option value="Morning Shift">Morning Shift</option>
+            <option value="Boys Shift">Boys Shift</option>
+            <option value="Girls Shift">Girl Shift</option>
+            </select>
+           <br>
+           <input type="text" class="form-control" placeholder="Enter room" name="room">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="svbtn" type="submit" class="btn btn-dark">Save</button>
+      </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+
+   <div class="card-body bg-white">
+    {% if messages %}
+        {% for message in messages %}
+
+          <div class="alert alert-dismissible  alert-{{message.tags}}" role="alert">
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    {{message}}
+</div>
+
+        {% endfor %}
+    {% endif %}
+    
+
+<select onchange="x()" class="w-25 form-control" id="yearshow">
+<option disabled selected >All</option>  
+<option value="">All Years</option>
+ {% for i in years %}
+   <option value="{{i.year_name}}">{{i.year_name}}</option>
+ {% endfor %}
+</select>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+   
+      <th scope="col">Section</th>
+      <th scope="col">Class</th>
+     <th scope="col">Group</th> 
+      <th scope="col">Shift</th>
+      <th scope="col">Room</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    {% for s in sec %}
+    <tr> 
+      <td>{{s.name}}</td>
+      <td>{{s.clas_name.name}}</td>
+
+      <td>{{s.group}}</td> 
+      <td>{{s.shift}}</td>
+      <td>{{s.room}}</td>
+      <td>
+        <a href="/dashboard/section?delete={{s.id}}"><i class="text-danger bi bi-trash-fill"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+   </thead>
+  </table>
+
+
+
+
+
+        </div>
+
+    </div>
+
+  </section>
+</div>
+
+<script>
+
+function submitForm() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtn');
+    btn.disabled = true;
+    btn.InnerText = "Submitting.."
+    var form = document.getElementById('frm');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/section", true);
+    
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               document.getElementById("frm").reset();
+               btn.disabled = false;
+               btn.InnerText = "Save"
+            } else {
+                document.getElementById("myForm").reset();
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+// Function to retrieve CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function x(){
+var dropdown = document.getElementById("yearshow");
+var val = dropdown.value;
+
+window.location.href = `?year=${val}`;
+
+}
+
+</script>
+
+{% endblock %}
