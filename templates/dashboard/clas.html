@@ -33,7 +33,7 @@
             <option value="Madrasa">Madrasa</option>
             </select>
             <br>
-            
+            <input type="hidden" name="clg" value="{{request.user.username}}">
               <select multiple name="subjects" class="form-control">
             <option selected  disabled>Select Subjects</option>
             {% for subject in subjects %}
@@ -80,8 +80,9 @@
    
       <th scope="col">Class</th>
       <th scope="col">Section Type</th>
-     <!--  <th scope="col">Subjects</th> -->
+     <th scope="col">Subjects</th> 
       <th scope="col">School Hour</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -90,11 +91,14 @@
     <tr> 
       <td>{{c.name}}</td>
       <td>{{c.type}}</td>
-<!--
+
       <td>{% for subject in c.subjects.all %}
         {{ subject.name}},
-    {% endfor %}</td> -->
+    {% endfor %}</td> 
       <td>{{c.start_time}} – {{c.end_time}}</td>
+      <td>
+        <a href="/dashboard/class?delete={{c.id}}"><i class="text-danger bi bi-trash-fill"></i></a>
+      </td>
     </tr>
     {% endfor %}
    </thead>

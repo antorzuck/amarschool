@@ -101,17 +101,33 @@ def pub_notice(request):
 
 
 def class_info(request):
+  if request.GET.get('delete'):
+    try:
+      sl = Class.objects.get(school=request.user, id=request.GET.get('delete'))
+      sl.delete()
+    except:
+      return redirect(dashboard)
+
   data = request.POST
-  clas = Class.objects.all().order_by('-id')
+  clas = Class.objects.filter(school=request.user).order_by('-id')
   if request.method == 'POST':
+    school = data.get('clg')
     name = data.get('name')
     type = data.get('type')
     subjects = data.getlist('subjects')
     start = data.get('start')
     end = data.get('end')
-    cr = Class.objects.create(name=name,type=type,start_time=start,end_time=end)
+    cr = Class.objects.create(school=User.objects.get(username=school), name=name,type=type,start_time=start,end_time=end)
     cr.subjects.set(subjects)
  
     return JsonResponse({"msg":"success"})
   return render(request, 'dashboard/clas.html', context={'clas':clas})
 
+
+def section(request):
+  data = request.POST
+  if request.method == "POST":
+    pass
+  sec = Section.objects.filter(user=request.user).order_by('-id')
+  context = {'sec':sec}
+  return redirect(request, 'section.html', context)

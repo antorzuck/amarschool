@@ -30,11 +30,13 @@ class Notice(models.Model):
   school = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Subject(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   name = models.CharField(max_length=200)
   code = models.CharField(max_length=200, null=True, blank=True)
 
 
 class Class(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   name = models.CharField(max_length=50)
   type = models.CharField(max_length=100)
   subjects = models.ManyToManyField(Subject)
@@ -43,6 +45,7 @@ class Class(models.Model):
 
 
 class Section(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   name = models.CharField(max_length=200)
   class_name = models.ManyToManyField(Class)
   shift = models.CharField(max_length=100)
