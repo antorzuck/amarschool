@@ -29,6 +29,10 @@ def register(request):
     password = request.POST.get('p1')
     cp = request.POST.get('p2')
     username = create_username(name)
+
+    if len(password) < 6:
+      messages.warning(request, "Password must be 6 character long")
+      return render(request, 'register.html')
     if User.objects.filter(email=email):
       messages.warning(request, "A user already exist with this email")
       return render(request, 'register.html')
@@ -137,5 +141,26 @@ def section(request):
     dsc = Section.objects.get(school=request.user,id=dl).delete()
   if yr:
     sec = sec.filter(year=yr)
-  context = {'sec':sec}
+  context = {'sec':sec, 'yr':yr}
   return render(request, 'dashboard/section.html', context)
+
+def get_rooms(request):
+  data = request.POST
+  rooms = Room.objects.filter(school=request.user).order_by('-id')
+  context = {'rooms':rooms}
+  if request.method == 'POST':
+    r = Room.objects.create(
+      school = User.objects.get(username=data.get('clg')),
+      room = data.get('room'),
+      desc = data.get('desc')
+    )
+    r.save()
+
+  d = request.GET.get('delete')
+  if d:
+    try:
+      Room.objects.get(school=request.user, id=d).delete()
+    except:
+      return redirect(dashboard)
+  return render(request, 'dashboard/rooms.html', context)
+

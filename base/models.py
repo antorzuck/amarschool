@@ -59,3 +59,9 @@ class Year(models.Model):
 
   def __str__(self):
     return str(self.year)
+
+
+class Room(models.Model):
+  school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+  room = models.CharField(max_length=50)
+  desc = models.TextField(null=True, blank=True)

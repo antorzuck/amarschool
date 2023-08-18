@@ -17,7 +17,8 @@ urlpatterns = [
     path('school/<slug>', get_school, name='get_school'),
     path('notice', pub_notice, name='pub_notice'),
     path('dashboard/class', class_info, name='class_info'),
-    path('dashboard/section', section, name='sec')
+    path('dashboard/section', section, name='sec'),
+    path('dashboard/rooms', get_rooms, name='get_rooms'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
