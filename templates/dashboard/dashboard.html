@@ -11,16 +11,18 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>{{request.user.name}} - Dashboard</title>
 
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Signika+Negative&display=swap');
-
+.icon{
+width : 60px;
+}
 body,
 button {
-  font-family: 'Signika Negative', sans-serif;
+  font-family: 'Inconsolata', sans-serif;
 }
 .card-body{
  width : 100%;
@@ -68,7 +70,6 @@ height : 35px;
 width :35px;
 border-radius : 100px;
 }
-
     </style>
   </head>
   <body class="bg-light">
@@ -87,7 +88,7 @@ border-radius : 100px;
         </button>
     
         <!-- Centered Text -->
-        <a class="mx-auto navbar-brand" href="#">Demo School</a>
+        <a class="mx-auto navbar-brand" href="/dashboard">{{request.user.name}}</a>
     
         <!-- Dropdown Button (End) -->
         <div class="dropdown dropstart">
@@ -114,7 +115,7 @@ border-radius : 100px;
         <nav class="navbar-dark">
           <ul class="navbar-nav">
             <li>
-              <div class="text-muted  small fw-bold text-uppercase px-3">
+              <div class="text-muted  small fw-bold text-uppercase px-3 my-3">
                 CORE
               </div>
             </li>
@@ -126,7 +127,7 @@ border-radius : 100px;
                 data-bs-toggle="collapse"
                 href="#layouts"
               >
-                <span class="my-2 me-2"><i class="bi bi-buildings"></i></span>
+                <span class="me-2"><i class="bi bi-award-fill"></i></span>
                 <span>Academics</span>
                 <span class="ms-auto">
                   <span class="right-icon">
@@ -138,26 +139,24 @@ border-radius : 100px;
                 <ul class="navbar-nav ps-3">
                   <li>
                     <a href="/dashboard/class" class="nav-link px-3">
-                      <span class="me-2"
-                        ><i class="bi bi-speedometer2"></i
-                      ></span>
+                      <span class=""
+                        ><i class="bi bi-caret-right-fill"></i></span>
                       <span>Class</span>
                     </a>
 
 
                     <a href="/dashboard/section" class="nav-link px-3">
-                      <span class="me-2"
-                        ><i class="bi bi-speedometer2"></i
-                      ></span>
+                      <span class=""
+                        ><i class="bi bi-caret-right-fill"></i></span>
                       <span>Section</span>
                     </a>
 
 
 
                      <a href="/dashboard/rooms" class="nav-link px-3">
-                      <span class="me-2"
-                        ><i class="bi bi-speedometer2"></i
-                      ></span>
+                      <span class="">
+<i class="bi bi-caret-right-fill"></i> 
+                      </span>
                       <span>Rooms</span>
                     </a>
 

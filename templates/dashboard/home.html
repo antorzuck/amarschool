@@ -8,11 +8,14 @@
 
 
 <div class="mb-2 col-md-4">
-<div class="rounded container text-white card-body bg-info p-3 text-center">
+<div class="rounded container text-dark card-body bg-white p-3 text-center">
 
 <div class="d-flex">
-<i style="font-size: 50px;"  class="my-auto bi bi-people-fill"></i>
-<h5 class="my-auto"> Total Users <br> 100 </h5>
+<img class="img-fluid icon"  src="https://api.dicebear.com/7.x/icons/svg?seed=abcdefghjklmnopqrstwxyzytqasddfgjjkdkdjdilpwoosknbfdsarujnbvdsy" alt="avatar" />
+<div class="m-auto">
+<h6 class="text-muted">Total Students</h6>
+<h4 class="text-dark"><b>100</b></h4>
+</div>
 </div>
 
 
@@ -20,12 +23,14 @@
 </div>
 
 <div class="mb-2 col-md-4">
-<div class="rounded container text-white card-body bg-danger p-3 text-center">
+<div class="rounded container text-dark card-body bg-white p-3 text-center">
 
 <div class="d-flex">
-<i style="font-size: 50px;"  class="my-auto bi bi-cash-stack"></i>
-<h5 class="my-auto ms-1">Todays Fees
-<br>Collection <br> ৳5400</h5>
+<img class="img-fluid icon" src="https://api.dicebear.com/7.x/icons/svg?seed=eqasvdkbffjmnnvgjl"   alt="avatar" />
+<div class="m-auto">
+<h6 class="text-muted">Todays Fees Collection</h6>
+<h4 class="text-dark"><b> ৳ 5400</b></h4>
+</div>
 </div>
 
 
@@ -33,10 +38,17 @@
 </div>
 
 <div class="col-md-4">
-<div class="rounded container text-white card-body bg-success p-3 text-center">
+<div class="rounded container card-body bg-white p-3 text-center">
 <div class="d-flex">
-<i style="font-size: 50px;"  class="my-auto bi bi-people-fill"></i>
-<h5 class="my-auto"> Total Users </h5>
+
+
+<img class="img-fluid icon"
+  src="https://api.dicebear.com/7.x/icons/svg?seed=teo%20teo"
+  alt="avatar" />
+<div class="m-auto">
+<h6 class="text-muted"> New Student </h6>
+<h4 class="text-dark">00</h4>
+</div>
 </div>
 </div>
 </div>
@@ -47,7 +59,7 @@
 <div class="col-md-6">
 <h5 class="text-start my-3">Publish notice</h5>
 
-<div class="card-body bg-white my-3 text-center">
+<div class="card-body rounded p-5  bg-white my-3 text-center">
 <form onsubmit="submitForm()" id="ntc" class="my-3">
 <textarea name="title" class="form-control" placeholder="Write a notice in short"  row=3></textarea>
 <br>
@@ -59,11 +71,18 @@
 </div>
 </div>
 
-
-
-
+<div class="col-md-6">
+<h5 class="text-start my-3">Students Report by Gender</h5>
+<div class="my-3 p-5 card-body bg-white">
+<canvas id="myPieChart"></canvas>
+</div>
+</div>
 </div>
 </center>
+
+
+
+
 
 
 <script>
@@ -117,6 +136,31 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
+
+        // Chart data provided as a JSON variable
+        var pieChartData = {
+            labels: ["Male", "Female"],
+            datasets: [
+                {
+                    data: [30, 40],  // Adjust the data values accordingly
+                    backgroundColor: ["#ED7B7B", '#33BBC5'],
+                }
+            ],
+        };
+
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+
+        // Create the Pie Chart
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: pieChartData,
+        });
+   
+
+
+
 </script>
 
 
