@@ -164,3 +164,18 @@ def get_rooms(request):
       return redirect(dashboard)
   return render(request, 'dashboard/rooms.html', context)
 
+def subject(request):
+  data = request.POST
+  d = request.GET.get('delete')
+  if d:
+    Subject.objects.get(id=d).delete()
+
+  sub = Subject.objects.all()
+  context = {'sub':sub}
+  if request.method == 'POST':
+    sc = User.objects.get(username=data.get('clg'))
+    s = Subject.objects.create(school=sc,name=data.get('name'),code=data.get('code'))
+    s.save()
+  return render(request, 'dashboard/sub.html', context)
+
+
