@@ -65,3 +65,22 @@ class Room(models.Model):
   school = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   room = models.CharField(max_length=50)
   desc = models.TextField(null=True, blank=True)
+
+
+# scheduler/models.py
+from django.db import models
+
+class Routine(models.Model):
+    school = models.ForeignKey(User, on_delete=models.CASCADE)
+    clas = models.ForeignKey(Class, on_delete=models.CASCADE)
+    sec = models.ForeignKey(Section, on_delete=models.CASCADE)
+    period = models.CharField(max_length=100)
+    sub = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    start = models.TimeField()
+    end = models.TimeField()
+    week = models.TextField(blank=True)
+    teacher = models.CharField(max_length=100)
+    
+
+    def __str__(self):
+        return self.clas.name

@@ -179,3 +179,10 @@ def subject(request):
   return render(request, 'dashboard/sub.html', context)
 
 
+def routine(r):
+  data = r.POST
+  context = {'routine': Routine.objects.all()}
+  if r.method == 'POST':
+    pass
+  return render(r, 'dashboard/routine.html', context)
+
