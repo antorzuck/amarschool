@@ -10,9 +10,6 @@
 
  <div class="mt-5 d-lex h-75 justify-content-center align-items-center">
 <div class="text-end">
-<button type="button" class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  <i class="bi bi-plus-circle-fill"></i> Section
-</button>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,7 +135,7 @@
         {% for r in routine %}
         {% for w in r.week.all %}
         {% if w.name == "SAT" %}
-       
+              
         <div class="p-3 bg-light">
             <h5 class="text-success">{{r.sub}}</h5>
             <p>{{r.period}}({{r.start}}-{{r.end}})</p>
@@ -149,6 +146,111 @@
       {% endfor %}
       {% endfor %}
     </td>
+
+
+        <td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "SUN" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
+<td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "MON" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
+
+<td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "TUE" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
+
+
+<td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "WED" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
+
+
+<td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "THU" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
+
+
+<td>
+        {% for r in routine %}
+        {% for w in r.week.all %}
+        {% if w.name == "FRI" %}
+
+        <div class="p-3 bg-light">
+            <h5 class="text-success">{{r.sub}}</h5>
+            <p>{{r.period}}({{r.start}}-{{r.end}})</p>
+            <h6 class="tex-danger">{{r.teacher}}</h6>
+        </div>
+
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </td>
+
     </tr>
    
    </thead>
