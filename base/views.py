@@ -199,3 +199,17 @@ def routine(r):
     ru.week.set(data.getlist('d'))
   return render(r, 'dashboard/routine.html', context)
 
+
+def view_routine(r):
+  y = r.GET.get('year')
+  cl = r.GET.get('class')
+  s = r.GET.get('sec')
+  routine= Routine.objects.all()
+
+  if cl:
+    routine = Routine.objects.filter(clas__name=cl)
+  if s:
+    routine = routine.filter(sec__name=s)
+
+  context = {'y':y,'cl':cl,'se':s, 'routine':routine}
+  return render(r,'dashboard/rv.html', context)
