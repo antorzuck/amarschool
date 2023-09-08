@@ -181,8 +181,21 @@ def subject(request):
 
 def routine(r):
   data = r.POST
+  d = r.GET.get('delete')
+  if d:
+    Routine.objects.get(id=d).delete()
   context = {'routine': Routine.objects.all()}
   if r.method == 'POST':
-    pass
+    print(data.get('sub'))
+    ru = Routine.objects.create(
+     school = User.objects.get(username=data.get('clg')),
+     clas = Class.objects.get(id=data.get('c')),
+     sub = data.get('sub'),
+     sec = Section.objects.get(id=data.get('s')),
+     period = data.get('p'),
+     start = data.get('st'),
+     end = data.get('en'),
+     teacher = data.get('t'))
+    ru.week.set(data.getlist('d'))
   return render(r, 'dashboard/routine.html', context)
 

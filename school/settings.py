@@ -69,6 +69,8 @@ TEMPLATES = [
                 'base.context_processors.get_subjects',
                 'base.context_processors.get_classes',
                 'base.context_processors.get_years',
+                'base.context_processors.get_sec',
+                'base.context_processors.get_day',
             ],
         },
     },

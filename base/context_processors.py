@@ -11,3 +11,11 @@ def get_classes(r):
 def get_years(r):
   context = {'years':Year.objects.all()}
   return context
+
+def get_sec(r):
+  context = {'sections':Section.objects.all()}
+  return context
+
+def get_day(r):
+  context = {'days':Day.objects.all()}
+  return context

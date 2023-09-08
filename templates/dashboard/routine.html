@@ -26,9 +26,49 @@
       </div>
       <div class="modal-body">
         <form id="frm" onsubmit="submitForm()">
-          <input class="form-control" type="text" name="name" placeholder="Subject name">
+
+          <select name="c" class="form-control">
+        <option selected disabled>Choose class..</option>
+        
+        {% for class in classes %}  
+        <option value={{class.id}}>{{class.name}}</option>
+         {% endfor %}
+      </select> <br>
+
+         <select name="s" multiple  class="form-control">
+        <option selected disabled>Choose section..</option>
+
+        {% for s in sections %}
+        <option value={{s.id}}>{{s.name}}</option>
+         {% endfor %}
+      </select> <br>
+        
+         <select name="sub"  class="form-control">
+        <option selected disabled>Choose subject..</option>
+
+        {% for sub in subjects %}
+        <option value={{sub.name}}>{{sub.name}}</option>
+         {% endfor %}
+      </select> <br>
+
+               <select name="d" multiple  class="form-control">
+        <option selected disabled>Choose days..</option>
+
+        {% for day in days %}
+        <option value={{day.id}}>{{day.name}}</option>
+         {% endfor %}
+      </select> <br>
+   <small>Enter class start time</small>
+     <input type="time" name="st" class="form-control">
+<br>
+    <small>Enter class end time</small>
+     <input type="time" name="en" class="form-control">
+            
            <br>
-            <input class="form-control" placeholder="Subject code" name="code">
+<input class="form-control" type="text" name="p" placeholder="Which period? Ex:1st">
+<br>
+          <input class="form-control" type="text" name="t" placeholder="Teacher name">
+          
             <input type="hidden" name="clg" value="{{request.user.username}}">
 
 
@@ -77,15 +117,16 @@
     {% for r in routine %}
     <tr>
       <td>{{r.clas.name}}</td>
-      <td>{{r.sub.name}}</td>
+      <td>{{r.sub}}</td>
 
       <td>{{r.sec.name}}</td>
       <td>{{r.period}}({{r.start}}-{{r.end}})</td>
-      <td>{{r.week}}</td>
+      <td> {% for w in r.week.all %}
+            {{w.name}}{% endfor %}</td>
       <td>{{r.teacher}}</td>
 
       <td>
-        <a href="/dashboard/subjects?delete={{s.id}}"><i class="text-danger bi bi-trash-fill"></i></a>
+        <a href="/dashboard/routine?delete={{r.id}}"><i class="text-danger bi bi-trash-fill"></i></a>
       </td>
     </tr>
     {% endfor %}
