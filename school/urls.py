@@ -21,7 +21,9 @@ urlpatterns = [
     path('dashboard/rooms', get_rooms, name='get_rooms'),
     path('dashboard/subjects', subject, name='subjects'),
     path('dashboard/routine', routine, name='routine'),
-    path('dashboard/routine/view', view_routine, name='vr')
+    path('dashboard/routine/view', view_routine, name='vr'),
+    path('dashboard/school-info', school_info, name='si')
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -74,7 +74,7 @@ border-radius : 100px;
   </head>
   <body class="bg-light">
     <!-- top navigation bar -->
-    <nav class="p-2 navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="p-2 navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <!-- Toggle Button (Start) -->
         <button
@@ -119,6 +119,54 @@ border-radius : 100px;
                 CORE
               </div>
             </li>
+
+
+
+            <li>
+              <a
+                class="nav-link px-3 sidebar-link"
+                data-bs-toggle="collapse"
+                href="#web"
+              >
+                <span class="me-2"><i class="bi bi-globe"></i></span>
+                <span>Website</span>
+                <span class="ms-auto">
+                  <span class="right-icon">
+                    <i class="bi bi-chevron-down"></i>
+                  </span>
+                </span>
+              </a>
+              <div class="collapse" id="web">
+                <ul class="navbar-nav ps-3">
+                  <li>
+                    <a target="_blank" href="http://127.0.0.1:8000/school/{{request.user.username}}" class="nav-link px-3">
+                      <span class=""
+                        ><i class="bi bi-caret-right-fill"></i
+                      ></span>
+                      <span>Visit Website</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/dashboard/school-info" class="nav-link px-3">
+                      <span class=""
+                        ><i class="bi bi-caret-right-fill"></i
+                      ></span>
+                      <span>Update Info</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" class="nav-link px-3">
+                      <span class=""
+                        ><i class="bi bi-caret-right-fill"></i
+                      ></span>
+                      <span>Image Gellary</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
            
           
             <li>

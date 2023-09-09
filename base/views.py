@@ -213,3 +213,7 @@ def view_routine(r):
 
   context = {'y':y,'cl':cl,'se':s, 'routine':routine}
   return render(r,'dashboard/rv.html', context)
+
+
+def school_info(r):
+  return render(r, 'dashboard/info.html')

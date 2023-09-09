@@ -1,0 +1,104 @@
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block body %}
+<div class="col-md-12">
+
+<section class="container">
+
+    <div class="p-5 card-body bg-white">
+        <h4 class="my-2 text-center text-dark">
+            Account Info
+        </h4>
+
+        <form id="frm1" enctype="multipart/form-data" onsubmit="submitForm()">
+            <small>Name:</small>
+            <input class="form-control my-1" type="text" name="name" value="{{request.user.name}}">
+            <small>Phone:</small>
+            <input class="form-control my-1" type="text" name="number" value="{{request.user.number}}">
+            <small>Logo:</small>
+            <input class="form-control my-1" type="file" name="logo" id="">
+            <br>
+            <button id="svbtn" type="submit" class="w-100 btn btn-dark">Save</button>
+        </form>
+    </div>
+
+
+    <br>
+
+    <div class="p-5 card-body bg-white">
+        <h4 class="my-2 text-center text-dark">
+            School Info
+        </h4>
+
+        <form id="frm" onsubmit="submitForm()">
+            <small>Slogan:</small>
+            <input class="form-control my-1" type="text" name="slogan" value="{{request.user.name}}">
+            <small>Facilities:</small>
+           <textarea class="form-control my-1" rows="3" placeholder="Write Facilities.."></textarea>
+            <small>Admission:</small>
+            <textarea class="form-control my-1" rows="3" placeholder="Admission Info.."></textarea>
+            <small>Adress:</small>
+            <input class="form-control my-1" type="text" name="address" value="">
+         
+            <br>
+            <button id="svbtn1" type="submit" class="w-100 btn btn-dark">Save</button>
+        </form>
+    </div>
+
+
+
+  </section>
+</div>
+
+<script>
+
+function submitForm() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtn');
+    btn.disabled = true;
+    btn.InnerText = "Submitting..";
+    var form = document.getElementById('frm');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/school-info", true);
+
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               document.getElementById("frm").reset();
+               btn.disabled = false;
+               btn.InnerText = "Save"
+            } else {
+                document.getElementById("myForm").reset();
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+// Function to retrieve CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+</script>
+
+{% endblock %}
