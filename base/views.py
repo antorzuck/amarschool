@@ -77,15 +77,17 @@ def handle_logout(request):
 
 
 def get_school(request, slug):
+
   try:
     school = User.objects.get(username=slug)
     schoolinfo = SchoolInfo.objects.get(school=school)
+    p = Principle.objects.get_or_create(school__username=slug)
+    print(p)
     notice = Notice.objects.filter(school=school).order_by('-id')
-    context = {'school':school, 'info':schoolinfo,'notice':notice}
+    context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p}
     return render(request, 'school.html',context)
   except Exception as e:
     print(e)
-    print("***")
     return redirect('/')
 
 
@@ -228,16 +230,27 @@ def school_info(r):
     if r.FILES.get('logo'):
       u.logo = r.FILES.get('logo')
     u.save()
-  si = SchoolInfo.objects.get(school=r.user)
-  return render(r, 'dashboard/info.html',context={'si':si})
+  si = SchoolInfo.objects.get_or_create(school=r.user)
+  p = Principle.objects.get_or_create(school=r.user)
+  return render(r, 'dashboard/info.html',context={'p':p,'si':si})
 
 
 def infoup(r):
   if r.method == 'POST':
-    sx = SchoolInfo.objects.get(school__username=r.POST['clg1'])
+    sx = SchoolInfo.objects.get_or_create(school__username=r.POST['clg1'])
     sx.slogan = r.POST['slogan']
     sx.facilities = r.POST['facilities']
     sx.address = r.POST['address']
     sx.admission = r.POST['addmission']
     sx.save()
   return JsonResponse({"msg":"eyy"})
+
+def prin(r):
+  if r.method == 'POST':
+    p = Principle.objects.get_or_create(school__username=r.POST.get('clg'))
+    p.name = r.POST.get('namep')
+    if r.FILES.get('img'):
+      p.image = r.FILES.get('img')
+    p.message = r.POST.get('mess')
+    p.save()
+  return redirect('/')

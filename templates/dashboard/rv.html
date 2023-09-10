@@ -10,63 +10,44 @@
 
  <div class="mt-5 d-lex h-75 justify-content-center align-items-center">
 <div class="text-end">
-<button class="text-white mb-2 btn btn-info" onclick="window.print()"><i class="bi bi-printer"></i></button>
+<button onclick="window.print()" class="cmd text-white mb-2 btn btn-info"><i class="bi bi-printer"></i></button>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Section</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="frm" onsubmit="submitForm()">
-          <input class="form-control" type="text" name="name" placeholder="Section name">
-           <br>
-          <select name="cls" class="form-control">
-            <option selected disabled>Section class </option>
-             {% for class in classes %}
-            <option value="{{class.id}}">{{class.name}}</option>
-            {% endfor %}
-            </select>
-            <br>
-            <input type="hidden" name="clg" value="{{request.user.username}}">
-              <select name="year" class="form-control">
-            <option selected  disabled>Select academic year</option>
-            {% for year in years %}
-            <option value="{{year.year_name}}">{{year.year_name}}</option>
-           {% endfor %}
-            </select>
-             <br>
-            <select name="group" class="form-control">
-             <option disabled selected>Select group</option>
-            <option value="Science">Science</option>
-            <option value="Arts">Arts</option>
-            <option value="Commerce">Commerce</option>
-            </select>
-            <br>
 
-              
-            <select name="shift" class="form-control">
-             <option disabled selected>Select Shift</option>
-            <option value="Morning Shift">Morning Shift</option>
-            <option value="Boys Shift">Boys Shift</option>
-            <option value="Girls Shift">Girl Shift</option>
-            </select>
-           <br>
-           <input type="text" class="form-control" placeholder="Enter room" name="room">
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button id="svbtn" type="submit" class="btn btn-dark">Save</button>
-      </form>
-       </div>
-    </div>
+<div class="my-2 card-body bg-white p-3">
+     
+<div class="d-flex justify-content-between">
+  <select onchange="x()" class="w-25 form-control" id="yearshow">
+  <option value="" disabled selected >All Year</option>  
+  <option value="">Year</option>
+   {% for i in years %}
+     <option {% if y == i.year_name %} selected {% endif %} value="{{i.year_name}}">{{i.year_name}}</option>
+   {% endfor %}
+  </select>
+  
+  
+  
+  
+  <select onchange="x()" class="w-25 form-control" id="class">
+      <option value="" disabled selected >All Class</option>  
+      <option value="">Class</option>
+       {% for c in classes %}
+         <option {% if cl == c.name %} selected {% endif %} value="{{c.name}}">{{c.name}}</option>
+       {% endfor %}
+      </select>
+  
+  
+      
+  <select onchange="x()" class="w-25 form-control" id="sec">
+      <option value="" disabled selected >All Section</option>  
+      <option value="">Section</option>
+       {% for s in sections %}
+         <option {% if se == s.name %} selected {% endif %} value="{{s.name}}">{{s.name}}</option>
+       {% endfor %}
+      </select>
+  
   </div>
 </div>
-
 
 
    <div class="card-body card-table bg-white">
@@ -81,38 +62,7 @@
 
         {% endfor %}
     {% endif %}
-    
-<div class="d-flex justify-content-between">
-<select onchange="x()" class="w-25 form-control" id="yearshow">
-<option value="" disabled selected >All Year</option>  
-<option value="">Year</option>
- {% for i in years %}
-   <option {% if y == i.year_name %} selected {% endif %} value="{{i.year_name}}">{{i.year_name}}</option>
- {% endfor %}
-</select>
-
-
-
-
-<select onchange="x()" class="w-25 form-control" id="class">
-    <option value="" disabled selected >All Class</option>  
-    <option value="">Class</option>
-     {% for c in classes %}
-       <option {% if cl == c.name %} selected {% endif %} value="{{c.name}}">{{c.name}}</option>
-     {% endfor %}
-    </select>
-
-
-    
-<select onchange="x()" class="w-25 form-control" id="sec">
-    <option value="" disabled selected >All Section</option>  
-    <option value="">Section</option>
-     {% for s in sections %}
-       <option {% if se == s.name %} selected {% endif %} value="{{s.name}}">{{s.name}}</option>
-     {% endfor %}
-    </select>
-
-</div>
+ 
 
 {% if y and se and cl %}
 <table class="table">
@@ -270,8 +220,8 @@
 
   </section>
 </div>
-
 <script>
+
 
 function submitForm() {
     event.preventDefault(); // Prevent default form submission

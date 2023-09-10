@@ -10,6 +10,15 @@ class User(AbstractUser):
   def __str__(self):
     return self.name
 
+class Principle(models.Model):
+   school = models.ForeignKey(User, on_delete=models.CASCADE)
+   name = models.CharField(max_length=100)
+   image = models.FileField(upload_to='principle')
+   message = models.TextField()
+
+   def __str__(self):
+      return self.name
+
 
 class SchoolInfo(models.Model):
   school = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -23,7 +23,8 @@ urlpatterns = [
     path('dashboard/routine', routine, name='routine'),
     path('dashboard/routine/view', view_routine, name='vr'),
     path('dashboard/school-info', school_info, name='si'),
-    path('dashboard/school-info/update', infoup, name='siu')
+    path('dashboard/school-info/update', infoup, name='siu'),
+    path('dashboard/school-info/prin', prin, name='prin')
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

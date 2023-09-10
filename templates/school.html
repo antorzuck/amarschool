@@ -129,12 +129,12 @@
                 <h5>Message from Principle</h5>
               </div>
            <div class="mb-5 bg-white text-center card-body p-3">
-            <img class="w-50 rounded-circle img-fluid" src="https://api.dicebear.com/6.x/initials/svg?seed=Kiki" alt="">
+            <img class="w-50 rounded-circle img-fluid" {% if p.image %} src="{{p.image.url}}" {% else %} src="https://api.dicebear.com/6.x/initials/svg?seed=Kiki" {% endif %} alt="">
             
-            <h4 class="text-dark my-2">মনোয়ার হোসেন</h4>
+            <h4 class="text-dark my-2">{{p.name}}</h4>
             <h6 class="text-muted">Principle / Head Teacher</h6>
             
-            <p class="text-dark my-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic</p>
+            <p class="text-dark my-2">{{p.message}}</p>
            </div>   
               
               
