@@ -215,5 +215,29 @@ def view_routine(r):
   return render(r,'dashboard/rv.html', context)
 
 
+from django.http import QueryDict
+
+
 def school_info(r):
-  return render(r, 'dashboard/info.html')
+  if r.method == 'POST':
+    data = r.POST
+    u = User.objects.get(username=data.get('clg'))
+    u.name = data.get('name')
+    u.number = data.get('number')
+    u.username = data.get('un')
+    if r.FILES.get('logo'):
+      u.logo = r.FILES.get('logo')
+    u.save()
+  si = SchoolInfo.objects.get(school=r.user)
+  return render(r, 'dashboard/info.html',context={'si':si})
+
+
+def infoup(r):
+  if r.method == 'POST':
+    sx = SchoolInfo.objects.get(school__username=r.POST['clg1'])
+    sx.slogan = r.POST['slogan']
+    sx.facilities = r.POST['facilities']
+    sx.address = r.POST['address']
+    sx.admission = r.POST['addmission']
+    sx.save()
+  return JsonResponse({"msg":"eyy"})

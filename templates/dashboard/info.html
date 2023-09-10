@@ -11,14 +11,16 @@
             Account Info
         </h4>
 
-        <form id="frm1" enctype="multipart/form-data" onsubmit="submitForm()">
+        <form id="frm" enctype="multipart/form-data" onsubmit="submitForm()">
             <small>Name:</small>
             <input class="form-control my-1" type="text" name="name" value="{{request.user.name}}">
+            <small>Username:</small>
+            <input class="form-control my-1" type="text" name="un" value="{{request.user.username}}">
             <small>Phone:</small>
             <input class="form-control my-1" type="text" name="number" value="{{request.user.number}}">
             <small>Logo:</small>
-            <input class="form-control my-1" type="file" name="logo" id="">
-            <br>
+            <input class="form-control my-1" type="file" name="logo">
+            <br> <input type="hidden" value={{request.user.username}} name="clg">
             <button id="svbtn" type="submit" class="w-100 btn btn-dark">Save</button>
         </form>
     </div>
@@ -31,16 +33,16 @@
             School Info
         </h4>
 
-        <form id="frm" onsubmit="submitForm()">
+        <form id="frm1" onsubmit="submitFormx()">
             <small>Slogan:</small>
-            <input class="form-control my-1" type="text" name="slogan" value="{{request.user.name}}">
+            <input class="form-control my-1" type="text" name="slogan" value="{{si.slogan}}">
             <small>Facilities:</small>
-           <textarea class="form-control my-1" rows="3" placeholder="Write Facilities.."></textarea>
+           <textarea name="facilities" class="form-control my-1" rows="3" placeholder="Write Facilities..">{{si.facilities}}</textarea>
             <small>Admission:</small>
-            <textarea class="form-control my-1" rows="3" placeholder="Admission Info.."></textarea>
+            <textarea name="addmission" class="form-control my-1" rows="3" placeholder="Admission Info..">{{si.admission}}</textarea>
             <small>Adress:</small>
-            <input class="form-control my-1" type="text" name="address" value="">
-         
+            <input class="form-control my-1" type="text" name="address" value="{{si.address}}">
+        <input type="hidden" value={{request.user.username}} name="clg1">    
             <br>
             <button id="svbtn1" type="submit" class="w-100 btn btn-dark">Save</button>
         </form>
@@ -57,7 +59,7 @@ function submitForm() {
     event.preventDefault(); // Prevent default form submission
     var btn = document.getElementById('svbtn');
     btn.disabled = true;
-    btn.InnerText = "Submitting..";
+    btn.innerText = "Submitting..";
     var form = document.getElementById('frm');
     var formData = new FormData(form);
 
@@ -70,9 +72,10 @@ function submitForm() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-               document.getElementById("frm").reset();
+          
                btn.disabled = false;
-               btn.InnerText = "Save"
+               btn.innerText = "Saved!"
+               btn.innerText = "Save"
             } else {
                 document.getElementById("myForm").reset();
                 btn.disabled = false;
@@ -82,6 +85,43 @@ function submitForm() {
     };
     xhr.send(formData);
 }
+
+
+
+
+function submitFormx() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtn1');
+    btn.disabled = true;
+    btn.innerText = "Submitting..";
+    var form = document.getElementById('frm1');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/school-info/update", true);
+
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+
+               btn.disabled = false;
+               btn.innerText = "Saved!"
+               btn.innerText = "Save"
+            } else {
+     
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+
+
 
 // Function to retrieve CSRF token from cookies
 function getCookie(name) {
