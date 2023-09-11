@@ -81,8 +81,8 @@ def get_school(request, slug):
   try:
     school = User.objects.get(username=slug)
     schoolinfo = SchoolInfo.objects.get(school=school)
-    p = Principle.objects.get_or_create(school__username=slug)
-    print(p)
+    p = Principle.objects.filter(school__username=slug)[0]
+    print(p.name)
     notice = Notice.objects.filter(school=school).order_by('-id')
     context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p}
     return render(request, 'school.html',context)
@@ -231,7 +231,7 @@ def school_info(r):
       u.logo = r.FILES.get('logo')
     u.save()
   si = SchoolInfo.objects.get_or_create(school=r.user)
-  p = Principle.objects.get_or_create(school=r.user)
+  p = Principle.objects.filter(school=r.user)[0]
   return render(r, 'dashboard/info.html',context={'p':p,'si':si})
 
 
@@ -247,7 +247,7 @@ def infoup(r):
 
 def prin(r):
   if r.method == 'POST':
-    p = Principle.objects.get_or_create(school__username=r.POST.get('clg'))
+    p = Principle.objects.filter(school__username=r.POST.get('clg'))[0]
     p.name = r.POST.get('namep')
     if r.FILES.get('img'):
       p.image = r.FILES.get('img')
