@@ -85,7 +85,7 @@ def get_school(request, slug):
     print(p.name)
     notice = Notice.objects.filter(school=school).order_by('-id')
     context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p}
-    return render(request, 'school.html',context)
+    return render(request, 'schoolgov.html',context)
   except Exception as e:
     print(e)
     return redirect('/')

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>{{request.user.name}}</title>
+    
+   <style>
+   @import url('https://fonts.maateen.me/solaiman-lipi/font.css');
+   body {
+     font-family: 'SolaimanLipi', Arial, sans-serif !important;
+   }
+  .imx{
+    width: 50px;,
+    height: 50px;
+    border-radius:100px;
+  }
+   
+   .carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Adjust the alpha value (0.5) for your desired opacity */
+  z-index: 1; /* Ensure the overlay is above the image */
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Place captions above the overlay */
+  color: #fff; /* Set caption text color */
+}
+
+.ban{
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+}
+h1{
+  font-size: 16pt;
+  text-shadow:0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+
+.scrolling-card {
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scrolling-content {
+      animation: scroll 10s linear infinite;
+      position: absolute;
+    }
+
+
+    @keyframes scroll {
+      0% {
+        top: 0;
+      }
+      100% {
+        top: -100%;
+      }
+    }
+
+   </style>
+   
+  </head>
+  <body>
+    <nav class="p-3 sticky-top navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">হোম<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ডাউনলোড ফাইল</a>
+          </li>
+      
+          <li class="nav-item">
+            <a class="nav-link" href="#">রেজাল্ট দেখুন</a>
+          </li> 
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">এডমিশন</a>
+                    </li>
+        </ul>
+     
+      </div>
+    </nav>
+    <div class="mt-3 container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="img-fluid gal d-block" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOrBnV7FrI4Gnqwh2TFhRMQ1iZn5u8hm6X2A&usqp=CAU" alt="First slide">
+          <div class="carousel-caption">
+           
+            
+          </div>
+        </div>
+        
+        
+        <div class="carousel-item">
+          <img class="gal d-block w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOrBnV7FrI4Gnqwh2TFhRMQ1iZn5u8hm6X2A&usqp=CAU" alt="Second slide">
+          <div class="d-flex carousel-caption">
+            <img class="my-auto ban img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCUVeMndPjlUCfUiWZb9_8TkIsMskulFPgMg&usqp=CAU" alt="">
+            <h1 class="mx-2 shadow text-warning my-auto">{{request.user.name}}</h1>
+         
+          </div>
+        </div>
+    
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    
+    </div>
+    
+    <div class="my-5 container">
+      <div class="row">
+        <div class="col-md-8">
+          
+          <div class="">
+          <center>
+            <div class="m-0 card-header bg-success text-white w-100">নোটিস বোর্ড</div>
+            <div class="scrolling-card card bg-white mb-3">
+
+                <div class="scrolling-content card-body">
+                {% for note in notice %}
+                  <div class="my-2 d-flex">
+                   <p class="my-auto p-1 rounded  bg-success text-white">
+                    {{note.date|date:"M d"}}
+                   </p>
+                 <p class="my-auto mx-2"> {{note.title}} </p>
+                 </div>
+                 {% endfor %}
+
+                </div>
+              </div>
+          </center>
+        </div>
+          
+          
+          
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card border">
+            <div style="--bs-bg-opacity: .5;" class="text-white text-center bg-success border-0 card-header">
+              সভাপতি মহোদয়ের বাণী
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+              <img class="imx rounded-circle img-fluid w-50" src="https://skillbasedit.com/demo/public/otherimage/1741209244067584.jpg" alt="">
+              <br>
+              <small>মোঃ শামসুল হক</small>
+              </div>
+          
+              <p class="my-2 text-center">
+                <a class="btn btn-outline-success" href="">পড়ুন</a>
+              </p>
+             
+            </div>
+          </div>
+          
+          
+          
+
+     <div class="my-3 card border">
+       <div style="--bs-bg-opacity: .5;" class="text-white text-center bg-success border-0 card-header">
+         প্রধান শিক্ষকের বানী
+       </div>
+       <div class="card-body">
+         <div class="text-center">
+           <img class="imx rounded-circle img-fluid w-50" src="https://skillbasedit.com/demo/public/otherimage/64f12b08715e0.jpg" alt="">
+           <br>
+           <small>মোঃ শামসুল হক</small>
+         </div>
+   
+         <p class="my-2 text-center">
+           <a class="btn btn-outline-success" href="">পড়ুন</a>
+         </p>
+   
+       </div>
+     </div>
+
+
+          
+          
+          <div class="card">
+            <div class="bg-success text-center text-white card-header">
+              গুরুত্তপূর্ণ লিংক
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">মাধ্যমিক ও উচ্চশিক্ষা অধিদপ্তর</li>
+              <li class="list-group-item">শিক্ষা মন্ত্রণালয়</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+          </div>
+          
+          
+         
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    
+    
+    <footer class="text-center">
+      <img class="w-100 img-fluid" src="https://skillbasedit.com/demo/public/frontend/img/footer_top_bg.png" alt="">
+      <br>
+      <small class="text-muted"></small>
+      
+    </footer>
+    
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
