@@ -98,6 +98,20 @@ class Routine(models.Model):
 
     def __str__(self):
         return self.clas.name
+    
+
+    class Student(models.Model):
+       name = models.CharField(max_length=500)
+       image = models.FileField(upload_to='students')
+       fname = models.CharField(max_length=100)
+       mname = models.CharField(max_length=100)
+       clas = models.ForeignKey(Class, on_delete=models.CASCADE)
+       section = models.ForeignKey(Section, on_delete=models.CASCADE)
+       roll = models.CharField(max_length=10000)
+       due_date = models.DateField()
+       blood = models.CharField(max_length=20)
+       gender = models.CharField(max_length=20)
+       
 
 
 
