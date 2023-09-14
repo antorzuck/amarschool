@@ -1,0 +1,100 @@
+
+{% extends 'dashboard/dashboard.html' %}
+
+
+{% block body %}
+<div class="col-md-12">
+
+<section class="vh-100">
+
+
+ <div class="mt-5 d-lex h-75 justify-content-center align-items-center">
+<div class="text-end">
+</div>
+<!-- Modal -->
+
+
+
+   <div class="card-table card-body bg-white">
+    {% if messages %}
+        {% for message in messages %}
+
+          <div class="alert alert-dismissible  alert-{{message.tags}}" role="alert">
+<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    {{message}}
+</div>
+
+        {% endfor %}
+    {% endif %}
+
+<div class="card-body bg-white">
+
+<form enctype="multipart/form-data" onsubmit="submitForm()" id="frm">
+<input type="hidden" name="clg" value="{{request.user.username}}">
+<input type="file" name="fi"  class="form-control">
+<button id="svbtn" type="submit" class="my-1 btn btn-dark w-100">Upload</button>
+</form>
+</div>
+
+
+
+
+        </div>
+
+    </div>
+
+  </section>
+</div>
+
+<script>
+
+function submitForm() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtn');
+    btn.disabled = true;
+    btn.InnerText = "Submitting..";
+    var form = document.getElementById('frm');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/gallery", true);
+
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               document.getElementById("frm").reset();
+               btn.disabled = false;
+               btn.InnerText = "Save"
+            } else {
+                document.getElementById("frm").reset();
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
+
+// Function to retrieve CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+</script>
+
+{% endblock %}

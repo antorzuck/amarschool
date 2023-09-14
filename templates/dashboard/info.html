@@ -77,17 +77,18 @@
             Sovapoti Info
         </h4>
 
-        <form id="frmp" enctype="multipart/form-data" onsubmit="prin()">
+        <form id="frms" enctype="multipart/form-data" onsubmit="sova()">
             <small>Name:</small>
-            <input class="form-control my-1" type="text" name="namep" value="{{p.name}}">
+            <input class="form-control my-1" type="text" name="namep" value="{{sv.name}}">
             <small>Message:</small>
-           <textarea name="mess" id="" class="form-control" rows="3">{{p.message}}</textarea>
+           <textarea name="mess" id="" class="form-control" rows="3">{{sv.message}}</textarea>
           
             <small>Image:</small>
             <input class="form-control my-1" type="file" name="img">
             <br> <input type="hidden" value={{request.user.username}} name="clg">
+     
             <input type="hidden" value={{request.user.username}} name="clg">
-            <button id="svbtnp" type="submit" class="w-100 btn btn-dark">Save</button>
+            <button id="svbtns" type="submit" class="w-100 btn btn-dark">Save</button>
         </form>
     </div>
 
@@ -131,7 +132,36 @@ function submitForm() {
 }
 
 
+function sova() {
+    event.preventDefault(); // Prevent default form submission
+    var btn = document.getElementById('svbtns');
+    btn.disabled = true;
+    btn.innerText = "Submitting..";
+    var form = document.getElementById('frms');
+    var formData = new FormData(form);
 
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/dashboard/school-info/sova", true);
+
+    // Add CSRF token to request headers
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+
+               btn.disabled = false;
+               btn.innerText = "Saved!"
+               btn.innerText = "Save"
+            } else {
+                document.getElementById("myForm").reset();
+                btn.disabled = false;
+               btn.InnerText = "Save"
+            }
+        }
+    };
+    xhr.send(formData);
+}
 
 function submitFormx() {
     event.preventDefault(); // Prevent default form submission

@@ -91,7 +91,8 @@ def get_school(request, slug):
     p = Principle.objects.filter(school__username=slug)[0]
     notice = Notice.objects.filter(school=school).order_by('-id')
     sova = Sovapoti.objects.filter(school=school)[0]
-    context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p,'sv':sova}
+    gal = Gallery.objects.filter(school=school)
+    context = {'school':school,'gal':gal, 'info':schoolinfo,'notice':notice,'p':p,'sv':sova}
     return render(request, 'schoolgov.html',context)
   except Exception as e:
     print(e)
@@ -238,15 +239,16 @@ def school_info(r):
     if r.FILES.get('logo'):
       u.logo = r.FILES.get('logo')
     u.save()
-  si = SchoolInfo.objects.get_or_create(school=r.user)
+  si = SchoolInfo.objects.get(school=r.user)
   p = Principle.objects.filter(school=r.user)[0]
-  return render(r, 'dashboard/info.html',context={'p':p,'si':si})
+  sv = Sovapoti.objects.filter(school=r.user)[0]
+  return render(r, 'dashboard/info.html',context={'sv':sv,'p':p,'si':si})
 
 
 def infoup(r):
   if r.method == 'POST':
-    print(r)
-    sx = SchoolInfo.objects.get_or_create(school__username=r.POST['clg1'])
+    print(r.POST)
+    sx = SchoolInfo.objects.get(school__username=r.POST['clg1'])
     sx.slogan = r.POST['sgn']
     sx.facilities = r.POST['facilities']
     sx.address = r.POST['address']
@@ -305,5 +307,23 @@ def create_student(request):
 
 
 
+def sova(r):
+  if r.method == 'POST':
+    print("done")
+    print(r.POST)
+    p = Sovapoti.objects.filter(school__username=r.POST.get('clg'))[0]
+    print(p)
+    p.name = r.POST.get('namep')
+    if r.FILES.get('img'):
+      p.image = r.FILES.get('img')
+    p.message = r.POST.get('mess')
+    p.save()
+  return redirect('/')
 
 
+def gallery(r):
+  if r.method == 'POST':
+    f = r.FILES.get('fi')
+    Gallery.objects.create(school=User.objects.get(username=r.POST.get('clg')), images=f)
+
+  return render(r, 'dashboard/gal.html')

@@ -26,6 +26,8 @@ urlpatterns = [
     path('dashboard/school-info/update', infoup, name='siu'),
     path('dashboard/school-info/prin', prin, name='prin'),
     path('dashboard/student', create_student),
+    path('dashboard/gallery', gallery),
+    path("dashboard/school-info/sova", sova, name='sova'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
