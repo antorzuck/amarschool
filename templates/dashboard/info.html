@@ -35,7 +35,7 @@
 
         <form id="frm1" onsubmit="submitFormx()">
             <small>Slogan:</small>
-            <input class="form-control my-1" type="text" name="slogan" value="{{si.slogan}}">
+            <input class="form-control my-1" type="text" name="sgn" value="{{si.slogan}}">
             <small>Facilities:</small>
            <textarea name="facilities" class="form-control my-1" rows="3" placeholder="Write Facilities..">{{si.facilities}}</textarea>
             <small>Admission:</small>
@@ -47,7 +47,7 @@
             <button id="svbtn1" type="submit" class="w-100 btn btn-dark">Save</button>
         </form>
     </div>
-<br>
+
 
     <div class="my2 p-5 card-body bg-white">
         <h4 class="my-2 text-center text-dark">
@@ -67,6 +67,30 @@
             <button id="svbtnp" type="submit" class="w-100 btn btn-dark">Save</button>
         </form>
     </div>
+
+
+
+
+    
+    <div class="my2 p-5 card-body bg-white">
+        <h4 class="my-2 text-center text-dark">
+            Sovapoti Info
+        </h4>
+
+        <form id="frmp" enctype="multipart/form-data" onsubmit="prin()">
+            <small>Name:</small>
+            <input class="form-control my-1" type="text" name="namep" value="{{p.name}}">
+            <small>Message:</small>
+           <textarea name="mess" id="" class="form-control" rows="3">{{p.message}}</textarea>
+          
+            <small>Image:</small>
+            <input class="form-control my-1" type="file" name="img">
+            <br> <input type="hidden" value={{request.user.username}} name="clg">
+            <input type="hidden" value={{request.user.username}} name="clg">
+            <button id="svbtnp" type="submit" class="w-100 btn btn-dark">Save</button>
+        </form>
+    </div>
+
 
 
 

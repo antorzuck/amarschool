@@ -113,3 +113,12 @@ class Students(models.Model):
        blood = models.CharField(max_length=20)
        gender = models.CharField(max_length=20)
        birth = models.DateField(null=True,blank=True)
+
+class Sovapoti(models.Model):
+   school = models.ForeignKey(User, on_delete=models.CASCADE)
+   name = models.CharField(max_length=100)
+   image = models.FileField(upload_to='principle')
+   message = models.TextField()
+
+   def __str__(self):
+      return self.name

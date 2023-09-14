@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>{{request.user.name}}</title>
+    <title>{{school.name}}</title>
     
    <style>
    @import url('https://fonts.maateen.me/solaiman-lipi/font.css');
@@ -81,7 +81,7 @@ h1{
   </head>
   <body>
     <nav class="p-3 sticky-top navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"></a>
+      <a class="navbar-brand" href="#">{{school.name}}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -126,7 +126,7 @@ h1{
           <img class="gal d-block w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOrBnV7FrI4Gnqwh2TFhRMQ1iZn5u8hm6X2A&usqp=CAU" alt="Second slide">
           <div class="d-flex carousel-caption">
             <img class="my-auto ban img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCUVeMndPjlUCfUiWZb9_8TkIsMskulFPgMg&usqp=CAU" alt="">
-            <h1 class="mx-2 shadow text-warning my-auto">{{request.user.name}}</h1>
+            <h1 class="mx-2 shadow text-warning my-auto">{{school.name}}</h1>
          
           </div>
         </div>
@@ -184,9 +184,9 @@ h1{
             </div>
             <div class="card-body">
               <div class="text-center">
-              <img class="imx rounded-circle img-fluid w-50" src="https://skillbasedit.com/demo/public/otherimage/1741209244067584.jpg" alt="">
+              <img class="imx rounded-circle img-fluid w-50" src="{{sv.image.url}}" alt="">
               <br>
-              <small>মোঃ শামসুল হক</small>
+              <small>{{sv.name}}</small>
               </div>
           
               <p class="my-2 text-center">
@@ -205,9 +205,9 @@ h1{
        </div>
        <div class="card-body">
          <div class="text-center">
-           <img class="imx rounded-circle img-fluid w-50" src="https://skillbasedit.com/demo/public/otherimage/64f12b08715e0.jpg" alt="">
+           <img class="imx rounded-circle img-fluid w-50" src="{{p.image.url}}" alt="">
            <br>
-           <small>মোঃ শামসুল হক</small>
+           <small class="my-2">{{p.name}}</small>
          </div>
    
          <p class="my-2 text-center">
@@ -227,7 +227,7 @@ h1{
             <ul class="list-group list-group-flush">
               <li class="list-group-item">মাধ্যমিক ও উচ্চশিক্ষা অধিদপ্তর</li>
               <li class="list-group-item">শিক্ষা মন্ত্রণালয়</li>
-              <li class="list-group-item">Vestibulum at eros</li>
+         
             </ul>
           </div>
           

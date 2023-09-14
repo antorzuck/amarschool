@@ -5,8 +5,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from datetime import datetime, timedelta
 
-
+def gen_due_date():
+  current_date = datetime.now()
+  next_month = current_date + timedelta(days=30)
+  return next_month
 
 def create_username(name):
   word = name
@@ -41,9 +45,13 @@ def register(request):
       messages.warning(request, "Password not matched")
       return render(request, 'register.html')
     user = User.objects.create(name=name, username=username, email=email)
+    user.due_date = gen_due_date()
     user.set_password(password)
     user.save()
-    return render(request,'register.html')
+    SchoolInfo.objects.create(school=user)
+    Principle.objects.create(school=user)
+    Sovapoti.objects.create(school=user)
+    return redirect('/login')
 
   return render(request, 'register.html')
 
@@ -68,7 +76,6 @@ def handle_login(request):
       messages.warning(request, "User not found")
       return render(request, 'login.html')
   return render(request, 'login.html')
-lu
 
 def handle_logout(request):
   logout(request)
@@ -82,9 +89,9 @@ def get_school(request, slug):
     school = User.objects.get(username=slug)
     schoolinfo = SchoolInfo.objects.get(school=school)
     p = Principle.objects.filter(school__username=slug)[0]
-    print(p.name)
     notice = Notice.objects.filter(school=school).order_by('-id')
-    context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p}
+    sova = Sovapoti.objects.filter(school=school)[0]
+    context = {'school':school, 'info':schoolinfo,'notice':notice,'p':p,'sv':sova}
     return render(request, 'schoolgov.html',context)
   except Exception as e:
     print(e)
@@ -238,8 +245,9 @@ def school_info(r):
 
 def infoup(r):
   if r.method == 'POST':
+    print(r)
     sx = SchoolInfo.objects.get_or_create(school__username=r.POST['clg1'])
-    sx.slogan = r.POST['slogan']
+    sx.slogan = r.POST['sgn']
     sx.facilities = r.POST['facilities']
     sx.address = r.POST['address']
     sx.admission = r.POST['addmission']
