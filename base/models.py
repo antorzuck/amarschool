@@ -100,18 +100,16 @@ class Routine(models.Model):
         return self.clas.name
     
 
-    class Student(models.Model):
+class Students(models.Model):
+       school = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
        name = models.CharField(max_length=500)
-       image = models.FileField(upload_to='students')
+       image = models.FileField(upload_to='stu')
        fname = models.CharField(max_length=100)
        mname = models.CharField(max_length=100)
-       clas = models.ForeignKey(Class, on_delete=models.CASCADE)
-       section = models.ForeignKey(Section, on_delete=models.CASCADE)
+       clas = models.ForeignKey(Class, on_delete=models.DO_NOTHING)
+       sec = models.ForeignKey(Section, on_delete=models.DO_NOTHING)
        roll = models.CharField(max_length=10000)
        due_date = models.DateField()
        blood = models.CharField(max_length=20)
        gender = models.CharField(max_length=20)
-       
-
-
-
+       birth = models.DateField(null=True,blank=True)

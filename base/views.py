@@ -68,7 +68,7 @@ def handle_login(request):
       messages.warning(request, "User not found")
       return render(request, 'login.html')
   return render(request, 'login.html')
-
+lu
 
 def handle_logout(request):
   logout(request)
@@ -77,7 +77,7 @@ def handle_logout(request):
 
 
 def get_school(request, slug):
-
+  print(slug)
   try:
     school = User.objects.get(username=slug)
     schoolinfo = SchoolInfo.objects.get(school=school)
@@ -88,6 +88,7 @@ def get_school(request, slug):
     return render(request, 'schoolgov.html',context)
   except Exception as e:
     print(e)
+ 
     return redirect('/')
 
 
@@ -206,12 +207,12 @@ def view_routine(r):
   y = r.GET.get('year')
   cl = r.GET.get('class')
   s = r.GET.get('sec')
-  routine= Routine.objects.all()
+  routine= Routine.objects.filter(school=request.user)
 
   if cl:
-    routine = Routine.objects.filter(clas__name=cl)
+    routine = Routine.objects.filter(school=request.user, clas__name=cl)
   if s:
-    routine = routine.filter(sec__name=s)
+    routine = routine.filter(school=request.user, sec__name=s)
 
   context = {'y':y,'cl':cl,'se':s, 'routine':routine}
   return render(r,'dashboard/rv.html', context)
@@ -254,3 +255,47 @@ def prin(r):
     p.message = r.POST.get('mess')
     p.save()
   return redirect('/')
+
+
+
+
+def create_student(request):
+    from base.models import Students
+    context = {'stud':Students.objects.filter(school=request.user)}
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        img = request.FILES.get('im')
+        fname = request.POST.get('fname')
+        mname = request.POST.get('mname')
+        clas_id = Class.objects.get(id=request.POST.get('clas'))  
+        section_id = Section.objects.get(id=request.POST.get('section'))
+        roll = request.POST.get('roll')
+        due_date = request.POST.get('due_date')
+        blood = request.POST.get('blood')
+        gender = request.POST.get('gender')
+
+       
+        student = Students.objects.create(
+            name=name,
+            school=User.objects.get(username=request.POST.get('clg')),       
+            fname=fname,
+            mname=mname,
+            clas=clas_id,
+            sec=section_id,
+            roll=roll,
+            due_date=due_date,
+            blood=blood,
+            gender=gender
+        )
+        if img:
+            student.image = img
+        student.save()
+
+       
+
+    return render(request, 'dashboard/student.html',context)
+
+
+
+
+
