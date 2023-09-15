@@ -283,6 +283,8 @@ def create_student(request):
         due_date = request.POST.get('due_date')
         blood = request.POST.get('blood')
         gender = request.POST.get('gender')
+        db = request.POST.get('dob')
+        join = request.POST.get('join')
 
        
         student = Students.objects.create(
@@ -295,7 +297,9 @@ def create_student(request):
             roll=roll,
             due_date=due_date,
             blood=blood,
-            gender=gender
+            gender=gender,
+            join= join,
+            birth = db
         )
         if img:
             student.image = img

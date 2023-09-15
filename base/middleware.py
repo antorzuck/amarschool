@@ -8,10 +8,14 @@ def due_date_middleware(get_response):
 
         if request.user.is_authenticated:
             today = datetime.now().date()
-            due_date = request.user.due_date  
+            due_date = request.user.due_date
+
+            if request.user.is_dued:
+                return render(request, 'subs.html')
             if today == due_date:
-               
-                return render(request, 'login.html')
+                u = User.objects.get(username=request.user.username)
+                u.is_dued = True
+                return render(request, 'subs.html')
 
         return response
 

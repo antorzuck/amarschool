@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="image">Image</label>
-                <input type="file" class="form-control-file" id="im" name="image" accept="image/*">
+                <input type="file" class="form-control" id="image" name="im" accept="image/*">
             </div>
             <div class="form-group">
                 <label for="fname">Father's Name</label>
@@ -43,20 +43,25 @@
             </div>
             <div class="form-group">
                 <label for="clas">Class</label>
-                <!-- Replace with your own class selection dropdown -->
+    
                 <select class="form-control" id="clas" name="clas" required>
-                    <option value="13">Class 1</option>
-                    <option value="19">Class 2</option>
-                    <!-- Add more options as needed -->
+                    {% for c in classes %}
+                    <option value="{{c.id}}">{{c.name}}</option>
+                    {% endfor %}
+               
+              
                 </select>
             </div>
             <div class="form-group">
                 <label for="section">Section</label>
-                <!-- Replace with your own section selection dropdown -->
+        
+            
                 <select class="form-control" id="section" name="section" required>
-                    <option value="17">Section A</option>
-                    <option value="18">Section B</option>
-                    <!-- Add more options as needed -->
+
+                    {% for sec in sections %}
+                    <option value="{{sec.id}}">{{sec.name}}</option>
+                      {% endfor %}
+        
                 </select>
             </div>
             <div class="form-group">
@@ -72,9 +77,19 @@
                 <input type="text" class="form-control" id="blood" name="blood" required>
             </div>
             <div class="form-group">
+                <label for="join">Join Date</label>
+                <input type="date" class="form-control" id="join" name="join" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Birth Date</label>
+                <input type="date" class="form-control" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
                 <label for="gender">Gender</label>
-                <!-- Replace with your own gender selection input -->
-                <input type="text" class="form-control" id="gender" name="gender" required>
+        
+                <select name="gender" class="form-control" id="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
             </div>
            <input type="hidden" name="clg" value={{request.user.username}}>       
 
@@ -89,8 +104,7 @@
   </div>
 </div>
 
-
-
+ </div>
    <div class="card-table card-body bg-white">
     {% if messages %}
         {% for message in messages %}
@@ -122,7 +136,9 @@
 
     {% for s in stud %}
     <tr>
-      <td>{% if s.image %}{{s.image.url}}{% else %}<img class="st my-auto img-fluid" 
+      <td>{% if s.image %} <img class="st my-auto img-fluid" 
+        src="{{s.image.url}}"
+        alt="avatar" /> {% else %}<img class="st my-auto img-fluid" 
   src="https://api.dicebear.com/7.x/adventurer/svg?seed={{s.name}}"
   alt="avatar" />{% endif %}</td>
       <td>{{s.name}}</td>

@@ -6,6 +6,7 @@ class User(AbstractUser):
   due_date = models.DateField(null=True, blank=True)
   number = models.CharField(max_length=100)
   logo = models.FileField(upload_to='logo')
+  is_dued = models.BooleanField(default=False)
 
   def __str__(self):
     return self.name
@@ -113,6 +114,7 @@ class Students(models.Model):
        blood = models.CharField(max_length=20)
        gender = models.CharField(max_length=20)
        birth = models.DateField(null=True,blank=True)
+       join = models.DateField(null=True, blank=True)
 
 class Sovapoti(models.Model):
    school = models.ForeignKey(User, on_delete=models.CASCADE)
